@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Tell-a-Tale Trail</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="themes/TellTrail.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <?RUN iOS HOME SCREEN PAGES IN FULL SCREEN?>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <?SET APPLE HOME SCREEN ICON?>
+            <link rel="apple-touch-icon" href="images/bardoicon.png">
+            <link rel="apple-touch-icon-precomposed" href="images/telltraillogos.png">
+            <?SET ANDROID HOME SCREEN ICON?>
+                <link rel="shortcut icon" sizes="57x57" href="images/telltraillogos.png">
+                <?ADD THE BOOTSTRAP LINKS FOR CAROUSEL?>
+                    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+                    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+                    <style>
+                        img {
+                            max-width: 100%;
+                        }
+                        
+                        p {
+                            margin 0 0 1em;
+                        }
+                        
+                        .singlecolumndesign {
+                            padding: 0.5em;
+                            margin: 1em;
+                        }
+                    </style>
+                    <?STYLE FOR THE CAROUSEL?>
+                        <style>
+                            .carousel-inner > .item > img,
+                            .carousel-inner > .item > a > img {
+                                width: 100%;
+                                margin: auto;
+                            }
+                        </style>
+</head>
+
+<body>
+    <?MAKE THE FIRST PAGE A NAVIGATION LIST HERE?>
+        <div data-role="page" id="page01">
+            <div data-role="header">
+                <h1>Tell-a-Tale Trail</h1> </div>
+            <div data-role="content">
+                <p>
+                    <h3>Find a tale from any trail you partake in Toronto</h3> </p>
+                <br>
+                <ul data-role="listview">
+                    <li><a href="#page02">About Tell-a-Tale Trail</a>
+                    </li>
+                    <li><a href="#page03">Find A Tale</a>
+                    </li>
+                    <li><a href="#page04">Gallery of Trails</a>
+                    </li>
+                    <li><a href="#page05">Contact Me</a>
+                    </li>
+                    <li onclick="toggleFullScreen()">Toggle fullscreen</li>
+                </ul>
+                <br>
+            </div>
+        </div>
+        <?ADD A PAGE 2 HERE?>
+            <div data-role="page" id="page02">
+                <div data-role="header">
+                    <h1>How <i>Tell-a-Tale Trail</i> came to be.</h1>
+                </div>
+                <div data-role="content">
+                    <p><i>Tell-a-Tale Trail</i> is inspired by <a href="http://murmurtoronto.ca" style="text-decoration:none">[murmur]</a>, A toronto-based project where signs of an ear with a number to call are posted all over Toronto neighborhoods with the audio files available. These files that users can call or access online are people's stories from those specific locations and acts as an immersive narrative for users to exeperience as they explore that location the narrator is discussing from another time.</p>
+                    <p> My app, <i>Tell-A-Tale Trail</i>, is a project that acts as a sort of update and refurbishing of <a href="http://murmurtoronto.ca" style="text-decoration:none">[murmur]</a>. Since most people use smartphones and data, users can use geolocation with this app and based on their location, can access stories (from myself so far), and listen to it as a podcast episode while gallavanting the streets of Toronto or looking to find more about the neighborhood.
+                    </p>
+                    <p>
+                        The next steps for this project is tracking a range of values as opposed to an exact location, since accuracy of longitude and latitudes of locations can be finnicky. Furthermore, my future goals for this project is getting more people to upload their own recordings when they access the geolocation on this app.
+                    </p>
+                    <h4>How it Works</h4>
+                    <p>
+                        My web app functions with two main components: geolocation and audio. Currently, due to server space, I have few pre-determined coordinates and audio files. The script calls for one audio (which is sorted according to location under the "audio id" tags) when it detects a match between the location the user has and the array of coordinates listed. The longitudes and latitudes of these specific locations, which are rounded down to the hundreth decimal. Basically, when there is a match on the user's coordinates with one in the array, a specific audio file listed in that array will start playing.
+                    </p>
+                    <h4>Challenges</h4>
+                    <p>My overall challenge with this app was connecting geolocation with audio. While I understood how to implement audio in html, I have never implemented audio in this version on javascript, or using html and javascript simultaneously. I also had an initial challenge with the coordinates and rounding them since geolocation gives numerous decimals when determining your location. One that I cannot figure out currently is how to pause the audio. For now, it plays continuously, even when navigating to other pages. I attempted to pause this using a blank canvas from test 11 but I couldn't find an appropriate way to implement a function to pause the music when the user clicked the canvas on the "Find a Tale" page.</p>
+                    <div data-role="footer">
+                        <h4><a href="#page01" style="text-decoration:none">HOME</a></h4>
+                    </div>
+                </div>
+            </div>
+
+            <?ADD A 3Rd PAGE HERE?>
+                <div data-role="page" id="page03">
+                    <div data-role="header">
+                        <h1>Find out where you are</h1>
+                    </div>
+                    <button onclick="getLocation()">Click here to find your location</button>
+                    <p id="demo"></p>
+
+                    <audio id="Home" src="audio/college.mp3" preload="auto"></audio>
+                    <audio id="School" src="audio/schoolsong.mp3" preload="auto"></audio>
+                    <audio id="Annex" src="audio/annex.mp3" preload="auto"></audio>
+                    <audio id="LeslieSpit" src="audio/lesliespit.mp3" preload="auto"></audio>
+                    <audio id="Kensington" src="audio/kensington.mp3" preload="auto"></audio>
+                    <p>Depending on your location, a narration about this location from my perspective will automatically start.</p>
+                    <script>
+                        var x = document.getElementById("demo");
+
+                        var locations = {};
+                        locations[(43.66, -79.38)] = "Home";
+                        locations[(43.65, -79.39)] = "School";
+                        locations[(43.65, -79.40)] = "Kensington";
+                        locations[(43.63, -79.33)] = "LeslieSpit";
+                        locations[(43.67, -79.40)] = "Annex";
+
+                        function thisStory(latitude, longitude) {
+                            var showPosition = locations[(Number(latitude.toFixed(2)), Number(longitude.toFixed(2)))];
+                            //document.write(Number(latitude.toFixed(3)) + ", " + Number(longitude.toFixed(3)));
+                            playSong(showPosition);
+                        }
+
+                        function playSong(path) {
+                            document.getElementById(path).play();
+                        }
+
+
+                        function getLocation() {
+                            if (navigator.geolocation) {
+                                navigator.geolocation.getCurrentPosition(showPosition);
+
+                            } else {
+                                x.innerHTML = "Geolocation is not supported by this browser.";
+                            }
+                        }
+
+                        function showPosition(position) {
+                            x.innerHTML = "Latitude: " + position.coords.latitude +
+                                "<br>Longitude: " + position.coords.longitude;
+                            thisStory(position.coords.latitude, position.coords.longitude);
+                        }
+
+
+
+
+                        //FULLSCREEN TOGGLE - JUST COPY AND PASTE THIS, DON'T TRY TO UNDERSTAND IT
+                        function toggleFullScreen() {
+                            var doc = window.document;
+                            var docEl = doc.documentElement;
+                            var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+                            var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+                            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+                                requestFullScreen.call(docEl);
+                            } else {
+                                cancelFullScreen.call(doc);
+                            }
+                        }
+                    </script>
+                    <div data-role="footer">
+                        <h4><a href="#page01" style="text-decoration:none">HOME</a></h4>
+                    </div>
+                </div>
+
+
+                <?ADD A PAGE 4 HERE?>
+                    <div data-role="page" id="page04">
+                        <div data-role="header" data-position="fixed">
+                            <h1>Gallery of Trails</h1>
+                        </div>
+                        <? HERE IS THE CAROUSEL CODE ?>
+                        <div class="container">
+                            <br>
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                    <li data-target="#myCarousel" data-slide-to="1"></li>
+                                    <li data-target="#myCarousel" data-slide-to="2"></li>
+                                    <li data-target="#myCarousel" data-slide-to="3"></li>
+                                    <li data-target="#myCarousel" data-slide-to="4"></li>
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox">
+
+
+                                    <div class="item active">
+                                        <img src="annex.gif" alt="annex" width="460" height="345">
+                                        <div class="carousel-caption">
+                                            <h3>The Annex</h3>
+                                            <p>Eclectic neighborhood bordering University of Toronto's St. George Campus. To myself? sushi, cheap breakfast + unlimited coffee, bars that don't card.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <img src="college.jpg" alt="college" width="460" height="345">
+                                        <div class="carousel-caption">
+                                            <h3>College Park</h3>
+                                            <p>North of Yonge/Dundas, host to many Ryerson students, some UofT students and smack inbetween the Eaton Centre and Yorkville. For myself: my apartment, Bulk Barn, and the best yet most crowded bar in this section of the city.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <img src="images/kensington.jpg" alt="kensington" width="460" height="345">
+                                        <div class="carousel-caption">
+                                            <h3>Kensington Market</h3>
+                                            <p>Hipster, diverse, great eateries, cafes, and art culture. For myself: a little haven in the city filled with a good chunk of drunk nights, cosy café outings and the best tacos I've ever devoured.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <img src="images/lesliespit.jpg" alt="lesliespit" width="460" height="345">
+                                        <div class="carousel-caption">
+                                            <h3>Leslie Street Spit</h3>
+                                            <p>Also known as Tommy Thompson Park. Open on weekends and weekdays after 6 pm. A desolate dumpsite with a bike path, birds, and hidden treasure. Myself? Great escape from everything else in Toronto.</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="item">
+                                        <img src="images/schoolrich.jpg" alt="schoolrich" width="460" height="345">
+                                        <div class="carousel-caption">
+                                            <h3>Richmond West (West of University)</h3>
+                                            <p>Clubs, bars, startups and various other companies reside in the Entertainment District. For myself: my main building at OCAD University, oddly enough.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Left and right controls -->
+                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                        <?RETURN TO THE REST OF THE LIQUID WEB DESIGN?>
+                            <div class=singlecolumndesign>
+                                <h3>Neighborhoods Explored in <i>Tell-a-Tale Trail</i></h3>
+                                <p>For those users to love a visual that they can look back to when listening to the stories.</p>
+                            </div>
+                            <div data-role="footer">
+                                <h4><a href="#page01" style="text-decoration:none">HOME</a></h4>
+                            </div>
+                    </div>
+
+
+                    <?ADD A PAGE 5 HERE?>
+                        <div data-role="page" id="page05">
+                            <div data-role="header">
+                                <h1>Contact Me</h1>
+                            </div>
+                            <div data-role="content">
+                                <p>Contact me via email: <a href="mailto:marishka.zachariah@gmail.com?subject=Regarding Tell-A-Tale Trail" style="text-decoration:none">marishka.zachariah@gmail.com</a>
+                                </p>
+                                <p>Click <a href="http://tinyurl.com/marishkazachariah" style="text-decoration:none">here</a> to view more of my projects and other work.</p>
+                            </div>
+                            <div data-role="footer">
+                                <h4><a href="#page01" style="text-decoration:none">HOME</a></h4>
+                            </div>
+                        </div>
+
+
+
+
+</body>
+
+</html>
